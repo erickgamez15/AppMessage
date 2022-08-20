@@ -52,7 +52,19 @@ public class MessagesDAO {
     }
 
     public static void deleteMessage(int id_message){
-
+        try(Connection cn = connection.getConnection()){
+            try {
+                query = "DELETE FROM `messages` WHERE `id_message` = ?";
+                ps = cn.prepareStatement(query);
+                ps.setInt(1, id_message);
+                ps.executeUpdate();
+                System.out.println("El mensaje se ha borrado correctamente\n");
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }catch (SQLException exception){
+            JOptionPane.showMessageDialog(null,"ERROR!\n");
+        }
     }
 
     public static void editMessage(Messages message){
