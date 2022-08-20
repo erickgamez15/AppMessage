@@ -26,6 +26,12 @@ public class MessagesService {
     }
 
     public static void editMessage(){
-
+        System.out.println("Escribe un nuevo mensaje");
+        String newMessage = sc.nextLine();
+        System.out.println("ID del mensaje a editar");
+        int newId = sc.nextInt();
+        messages.setId_message(newId);
+        messages.setMessage(newMessage);
+        MessagesDAO.editMessage(messages);
     }
 }

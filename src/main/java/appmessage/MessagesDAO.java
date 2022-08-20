@@ -30,7 +30,7 @@ public class MessagesDAO {
     }
 
     public static void  readMessages(){
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try(Connection cn = connection.getConnection()){
             try {
                 query = "SELECT * FROM `messages`";
@@ -68,6 +68,19 @@ public class MessagesDAO {
     }
 
     public static void editMessage(Messages message){
-
+        try(Connection cn = connection.getConnection()){
+            try {
+                query = "UPDATE `messages` SET `message` = ? WHERE `id_message` = ?";
+                ps = cn.prepareStatement(query);
+                ps.setString(1, message.getMessage());
+                ps.setInt(2, message.getId_message());
+                ps.executeUpdate();
+                System.out.println("El mensaje se ha actualizado correctamente\n");
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }catch (SQLException exception){
+            JOptionPane.showMessageDialog(null,"ERROR!\n");
+        }
     }
 }
